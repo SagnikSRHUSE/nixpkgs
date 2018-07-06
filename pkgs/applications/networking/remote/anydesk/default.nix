@@ -18,9 +18,14 @@ in stdenv.mkDerivation rec {
   version = "2.9.4";
 
   src = fetchurl {
-    url = "https://download.anydesk.com/linux/${name}-${arch}.tar.gz";
+    url = "https://download.anydesk.com/linux/anydesk_2.9.6-1_${arch}.deb";
     inherit sha256;
   };
+  
+ unpackPhase = ''
+    ar x $src
+    tar xf data.tar.*
+ '';
 
   libPath = stdenv.lib.makeLibraryPath ([
     cairo gdk_pixbuf glib gtk2 stdenv.cc.cc pango
@@ -37,6 +42,7 @@ in stdenv.mkDerivation rec {
     install -m755 anydesk $out/bin/anydesk
     cp changelog copyright README $out/share/doc/anydesk
     cp -r icons/* $out/share/icons/hicolor/
+    ln -s $out/share/applications/anydesk.desktop $out/share/applications
   '';
 
   postFixup = ''
