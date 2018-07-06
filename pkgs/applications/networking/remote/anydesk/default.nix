@@ -15,10 +15,10 @@ let
 
 in stdenv.mkDerivation rec {
   name = "anydesk-${version}";
-  version = "2.9.4";
+  version = "2.9.6";
 
   src = fetchurl {
-    url = "https://download.anydesk.com/linux/anydesk_2.9.6-1_${arch}.deb";
+    url = "https://download.anydesk.com/linux/anydesk_${version}-1_${arch}.deb";
     inherit sha256;
   };
   
